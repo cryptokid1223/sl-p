@@ -73,7 +73,7 @@ const LandingPage = () => {
           <div className="mb-12">
             <h1 className="text-6xl font-bold text-white mb-6 tracking-tight drop-shadow-lg">
               <DecryptedText
-                text="Slöp"
+                text="Vleeb"
                 speed={80}
                 maxIterations={15}
                 animateOn="view"

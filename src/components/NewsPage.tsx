@@ -300,7 +300,7 @@ const NewsPage = () => {
               </button>
             </div>
             <div className="flex-1 flex justify-center">
-              <h1 className="text-2xl font-bold text-white">Slöp</h1>
+              <h1 className="text-2xl font-bold text-white">Vleeb</h1>
             </div>
             <div className="absolute right-0 flex items-center h-full">
               {isAdmin && (

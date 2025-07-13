@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 const CRYPTOS = [
-  { name: 'SlöpCoin', symbol: 'SLP' },
+  { name: 'VleebCoin', symbol: 'VLB' },
   { name: 'Dogeshit', symbol: 'DOGS' },
   { name: 'QuantumPepe', symbol: 'QPEPE' },
   { name: 'MoonJuice', symbol: 'MOONJ' },

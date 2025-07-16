@@ -101,24 +101,12 @@ export const useRouteFix = () => {
     }
   }, [navigate]);
 
-  // Additional 404 handling for Vercel
+  // Store current path for recovery
   useEffect(() => {
-    // Check if we're on a 404 page (Vercel shows this)
-    const is404Page = document.title.includes('404') || 
-                     document.title.includes('NOT_FOUND') ||
-                     window.location.pathname.includes('404') ||
-                     document.body.textContent?.includes('NOT_FOUND');
-    
-    if (is404Page) {
-      const lastPath = sessionStorage.getItem('lastPath') || localStorage.getItem('lastPath');
-      
-      if (lastPath && (lastPath === '/' || lastPath === '/news' || lastPath.startsWith('/article/'))) {
-        // Redirect to the last known valid path
-        navigate(lastPath, { replace: true });
-      } else {
-        // Redirect to home
-        navigate('/', { replace: true });
-      }
+    const currentPath = window.location.pathname;
+    if (currentPath !== '/') {
+      sessionStorage.setItem('lastPath', currentPath);
+      localStorage.setItem('lastPath', currentPath);
     }
-  }, [navigate]);
+  }, []);
 }; 

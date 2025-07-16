@@ -14,22 +14,10 @@ function AppContent() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Handle Safari mobile refresh issues and 404s
+    // Handle Safari mobile refresh issues
     const handleInitialLoad = () => {
       const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      
-      // Check if we're on a 404 page
-      const is404Page = document.title.includes('404') || 
-                       document.title.includes('NOT_FOUND') ||
-                       window.location.pathname.includes('404') ||
-                       document.body.textContent?.includes('NOT_FOUND');
-      
-      if (is404Page) {
-        // Immediately redirect to home if we detect a 404
-        window.location.href = '/';
-        return;
-      }
       
       if (isSafari && isMobile) {
         // Small delay to ensure routing is properly initialized

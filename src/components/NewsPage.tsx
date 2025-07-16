@@ -416,58 +416,60 @@ const NewsPage = () => {
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Header */}
-          <div className="flex items-center justify-between py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between py-4 sm:py-6 space-y-4 sm:space-y-0">
             {/* Left - Back Button */}
-            <div className="flex items-center">
+            <div className="flex items-center order-1 sm:order-1">
               <button
                 onClick={() => navigate('/')} 
                 className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white flex items-center text-sm font-medium"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
+                <span className="hidden sm:inline">Back to Home</span>
+                <span className="sm:hidden">Back</span>
               </button>
             </div>
 
             {/* Center - Logo */}
-            <div className="flex items-center space-x-5">
-              <div className="w-16 h-16 bg-gradient-to-br from-slate-900 via-gray-800 to-slate-900 rounded-3xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
+            <div className="flex items-center space-x-3 sm:space-x-5 order-2 sm:order-2">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-slate-900 via-gray-800 to-slate-900 rounded-2xl sm:rounded-3xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
                 {/* Subtle inner glow */}
-                <div className="absolute inset-1 bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl"></div>
+                <div className="absolute inset-1 bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl sm:rounded-2xl"></div>
                 {/* Main icon - sleek minimalist design */}
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" className="text-white relative z-10">
+                <svg width="24" height="24" viewBox="0 0 36 36" fill="none" className="text-white relative z-10 sm:w-9 sm:h-9">
                   <path d="M10 10 L18 26 L26 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.95"/>
                   <circle cx="18" cy="14" r="1.5" fill="currentColor" opacity="0.8"/>
                   <line x1="12" y1="20" x2="24" y2="20" stroke="currentColor" strokeWidth="1.5" opacity="0.6"/>
                   <line x1="14" y1="22" x2="22" y2="22" stroke="currentColor" strokeWidth="1" opacity="0.4"/>
                 </svg>
-                <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white/15 to-transparent rounded-t-3xl"></div>
-                <div className="absolute inset-0 rounded-3xl border border-white/10"></div>
+                <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white/15 to-transparent rounded-t-2xl sm:rounded-t-3xl"></div>
+                <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border border-white/10"></div>
               </div>
               <div className="text-center">
-                <h1 className="text-5xl font-light text-gray-900 dark:text-white tracking-wider">VLEEB</h1>
+                <h1 className="text-3xl sm:text-5xl font-light text-gray-900 dark:text-white tracking-wider">VLEEB</h1>
                 <p className="text-xs text-gray-500 dark:text-gray-300 font-medium tracking-[0.2em] uppercase mt-1">News Articles</p>
               </div>
             </div>
 
             {/* Right - Admin Button & Dark Mode Toggle */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4 order-3 sm:order-3">
               {/* Bookmarks Button */}
               <button
                 onClick={() => setShowBookmarks(!showBookmarks)}
-                className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`flex items-center px-2 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   showBookmarks
                     ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                 }`}
               >
-                <Bookmark className={`w-4 h-4 mr-2 ${showBookmarks ? 'fill-current' : ''}`} />
-                My Bookmarks ({bookmarks.length})
+                <Bookmark className={`w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 ${showBookmarks ? 'fill-current' : ''}`} />
+                <span className="hidden sm:inline">My Bookmarks ({bookmarks.length})</span>
+                <span className="sm:hidden">({bookmarks.length})</span>
               </button>
               
               {/* Dark/Light Mode Toggle */}
               <button
                 onClick={toggleDarkMode}
-                className={`relative w-14 h-8 rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400 shadow-lg ${
+                className={`relative w-12 h-6 sm:w-14 sm:h-8 rounded-full transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400 shadow-lg ${
                   isDarkMode 
                     ? 'bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-600' 
                     : 'bg-gradient-to-r from-yellow-400 to-orange-500 border border-yellow-300'
@@ -476,21 +478,21 @@ const NewsPage = () => {
               >
                 {/* Toggle Handle */}
                 <span
-                  className={`absolute top-1 w-6 h-6 rounded-full shadow-lg transition-all duration-500 flex items-center justify-center ${
+                  className={`absolute top-0.5 sm:top-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full shadow-lg transition-all duration-500 flex items-center justify-center ${
                     isDarkMode 
-                      ? 'translate-x-7 bg-gray-700 border border-gray-500' 
-                      : 'translate-x-1 bg-white border border-yellow-200'
+                      ? 'translate-x-6 sm:translate-x-7 bg-gray-700 border border-gray-500' 
+                      : 'translate-x-0.5 sm:translate-x-1 bg-white border border-yellow-200'
                   }`}
                 >
                   {/* Sun Icon for Light Mode */}
                   {!isDarkMode && (
-                    <svg className="w-3 h-3 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
                     </svg>
                   )}
                   {/* Moon Icon for Dark Mode */}
                   {isDarkMode && (
-                    <svg className="w-3 h-3 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                     </svg>
                   )}
@@ -501,10 +503,11 @@ const NewsPage = () => {
               {isAdmin && (
                 <button
                   onClick={() => setShowUploadForm(true)}
-                  className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 text-sm font-medium transition-colors"
+                  className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-2 sm:px-4 py-2 rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 text-xs sm:text-sm font-medium transition-colors"
                 >
-                  <Plus className="w-4 h-4 inline mr-2" />
-                  Add Article
+                  <Plus className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Add Article</span>
+                  <span className="sm:hidden">Add</span>
                 </button>
               )}
             </div>
@@ -512,12 +515,12 @@ const NewsPage = () => {
 
           {/* Navigation */}
           <nav className="border-t border-gray-100 dark:border-gray-800 py-4">
-            <div className="flex items-center justify-center space-x-8">
+            <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-4 lg:gap-8 px-2">
               {availableCategories.map((category) => (
                 <button
                   key={category}
                   onClick={() => handleCategoryClick(category)}
-                  className={`nav-link ${selectedCategory === category ? 'active' : ''}`}
+                  className={`nav-link text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2 ${selectedCategory === category ? 'active' : ''}`}
                 >
                   {category}
                 </button>
@@ -527,7 +530,7 @@ const NewsPage = () => {
 
           {/* Date and Weather */}
           <div className="border-t border-gray-100 dark:border-gray-800 py-3">
-            <div className="flex items-center justify-center space-x-6 text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center justify-center flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-6 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
               <span className="font-medium">{format(new Date(), 'EEEE, MMMM d, yyyy')}</span>
               <span className="font-medium">☀️ 80°</span>
             </div>
@@ -538,31 +541,31 @@ const NewsPage = () => {
       {/* Crypto Ticker */}
       <div className="crypto-ticker">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center py-3">
-            <div className="flex items-center space-x-2 mr-6">
+          <div className="flex items-center py-2 sm:py-3">
+            <div className="flex items-center space-x-2 mr-3 sm:mr-6">
               <span className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider">Market Watch</span>
               <span className="text-xs">📈</span>
             </div>
             <div className="flex-1 overflow-hidden">
-              <div className="flex animate-scroll whitespace-nowrap gap-6">
+              <div className="flex animate-scroll whitespace-nowrap gap-3 sm:gap-6">
                 {displayCryptos.map((crypto, i) => {
                   const { price, change } = displayPrices[i % cryptoPrices.length] || { price: '0.00', change: 1 };
                   return (
                     <div
                       key={crypto.symbol + '-' + i}
-                      className="crypto-item"
+                      className="crypto-item text-xs sm:text-sm"
                       onClick={() => handleCryptoClick(crypto, { price, change })}
                     >
                       <span className="font-bold text-gray-900 dark:text-white">{crypto.symbol}</span>
                       <span className="text-gray-800 dark:text-gray-200 font-medium">${price}</span>
                       {change > 0 ? (
                         <span className="flex items-center text-green-600 dark:text-green-400 font-medium">
-                          <ArrowUpRight className="w-3 h-3 mr-1" />
+                          <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
                           +{((Math.random() * 5) + 0.5).toFixed(2)}%
                         </span>
                       ) : (
                         <span className="flex items-center text-red-600 dark:text-red-400 font-medium">
-                          <ArrowDownRight className="w-3 h-3 mr-1" />
+                          <ArrowDownRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
                           -{((Math.random() * 5) + 0.5).toFixed(2)}%
                         </span>
                       )}
@@ -576,7 +579,7 @@ const NewsPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         {loading && (
           <div className="text-center py-16">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
@@ -592,28 +595,28 @@ const NewsPage = () => {
             </div>
           </div>
         )}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-16">
           {/* Left Column - News Section */}
           <div className="lg:col-span-7">
-            <div className="mb-12">
-              <h2 className="text-gray-900 dark:text-white font-bold text-2xl mb-8 uppercase tracking-wide border-b border-gray-200 dark:border-gray-700 pb-4">Latest News</h2>
+            <div className="mb-8 sm:mb-12">
+              <h2 className="text-gray-900 dark:text-white font-bold text-xl sm:text-2xl mb-6 sm:mb-8 uppercase tracking-wide border-b border-gray-200 dark:border-gray-700 pb-4">Latest News</h2>
               
               {/* Featured Article */}
               {currentLatestArticle && (
-                <div className="mb-12">
+                <div className="mb-8 sm:mb-12">
                   <h1 
-                    className="text-5xl font-bold text-gray-900 dark:text-white mb-8 leading-tight cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                    className="text-2xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8 leading-tight cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                     onClick={() => navigate(`/article/${currentLatestArticle.id}`)}
                   >
                     {currentLatestArticle.title}
                   </h1>
                   
                   {/* Related Headlines */}
-                  <div className="space-y-6 mb-10">
+                  <div className="space-y-4 sm:space-y-6 mb-8 sm:mb-10">
                     {currentOlderArticles.slice(0, 2).map((article, index) => (
                       <div 
                         key={article.id} 
-                        className="text-xl text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white cursor-pointer border-l-4 border-gray-300 dark:border-gray-600 pl-6 py-3 hover:border-gray-500 dark:hover:border-gray-400 transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-r-lg"
+                        className="text-base sm:text-xl text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white cursor-pointer border-l-4 border-gray-300 dark:border-gray-600 pl-4 sm:pl-6 py-2 sm:py-3 hover:border-gray-500 dark:hover:border-gray-400 transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-r-lg"
                         onClick={() => navigate(`/article/${article.id}`)}
                       >
                         "{article.title}"
@@ -622,11 +625,11 @@ const NewsPage = () => {
                   </div>
                   
                   <div 
-                    className="inline-flex items-center text-xl font-semibold text-gray-900 dark:text-white cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors border-b-2 border-transparent hover:border-gray-900 dark:hover:border-white pb-1"
+                    className="inline-flex items-center text-lg sm:text-xl font-semibold text-gray-900 dark:text-white cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors border-b-2 border-transparent hover:border-gray-900 dark:hover:border-white pb-1"
                     onClick={() => navigate(`/article/${currentLatestArticle.id}`)}
                   >
                     Read The Latest
-                    <span className="ml-3 text-2xl">→</span>
+                    <span className="ml-2 sm:ml-3 text-xl sm:text-2xl">→</span>
                   </div>
                 </div>
               )}
@@ -634,10 +637,10 @@ const NewsPage = () => {
           </div>
 
           {/* Center Column - Featured Image */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 order-2 lg:order-2">
             {currentLatestArticle && currentLatestArticle.image_url && (
               <div className="cursor-pointer group" onClick={() => navigate(`/article/${currentLatestArticle.id}`)}>
-                <div className="relative overflow-hidden rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500">
+                <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl group-hover:shadow-2xl sm:group-hover:shadow-3xl transition-all duration-500">
                   <img 
                     src={currentLatestArticle.image_url} 
                     alt={currentLatestArticle.title}
@@ -650,23 +653,23 @@ const NewsPage = () => {
           </div>
 
           {/* Right Column - Trending */}
-          <div className="lg:col-span-2">
-            <h2 className="text-gray-900 dark:text-white font-bold text-2xl mb-10 uppercase tracking-wide border-b border-gray-200 dark:border-gray-700 pb-4">Trending</h2>
-            <div className="space-y-10">
+          <div className="lg:col-span-2 order-3 lg:order-3">
+            <h2 className="text-gray-900 dark:text-white font-bold text-xl sm:text-2xl mb-6 sm:mb-10 uppercase tracking-wide border-b border-gray-200 dark:border-gray-700 pb-4">Trending</h2>
+            <div className="space-y-6 sm:space-y-10">
               {trendingArticles.map((article, index) => (
                 <div key={article.id} className="cursor-pointer group" onClick={() => navigate(`/article/${article.id}`)}>
-                  <div className="flex flex-col space-y-4">
+                  <div className="flex flex-col space-y-3 sm:space-y-4">
                     {article.image_url && (
-                      <div className="relative overflow-hidden rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300">
+                      <div className="relative overflow-hidden rounded-lg sm:rounded-xl shadow-md sm:shadow-lg group-hover:shadow-lg sm:group-hover:shadow-xl transition-all duration-300">
                         <img 
                           src={article.image_url} 
                           alt={article.title}
-                          className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-500"
+                          className="w-full h-24 sm:h-32 object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
                     )}
-                    <div className="space-y-3">
+                    <div className="space-y-2 sm:space-y-3">
                       <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold tracking-[0.2em]">
                         {article.category}
                       </div>
@@ -685,13 +688,13 @@ const NewsPage = () => {
         </div>
 
         {/* Category Filter */}
-        <div className="mt-20 mb-12">
-          <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 pb-6">
-            <div className="flex items-center space-x-6">
+        <div className="mt-12 sm:mt-20 mb-8 sm:mb-12">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-gray-200 dark:border-gray-700 pb-4 sm:pb-6 space-y-4 sm:space-y-0">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-6">
               <label htmlFor="category-filter" className="text-gray-900 dark:text-white font-bold text-sm uppercase tracking-wide">Filter by category:</label>
               <select
                 id="category-filter"
-                className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 font-medium focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-colors text-gray-900 dark:text-white"
+                className="px-4 sm:px-6 py-2 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 font-medium focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-colors text-gray-900 dark:text-white"
                 value={selectedCategory}
                 onChange={e => setSelectedCategory(e.target.value)}
               >
@@ -707,7 +710,7 @@ const NewsPage = () => {
         </div>
 
         {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
           {currentOlderArticles.map(article => (
             <div
               key={article.id}
@@ -719,17 +722,17 @@ const NewsPage = () => {
                   <img 
                     src={article.image_url} 
                     alt={article.title}
-                    className="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-40 sm:h-52 object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               )}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 space-y-2 sm:space-y-0">
                   <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold tracking-[0.15em]">
                     {article.category}
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
                     <div className="flex items-center text-xs text-gray-400 dark:text-gray-500 font-medium">
                       <Clock className="w-3 h-3 mr-1" />
                       {calculateReadingTime(article.content)} min read
@@ -739,7 +742,7 @@ const NewsPage = () => {
                     </div>
                   </div>
                 </div>
-                <h3 className="font-bold text-gray-900 dark:text-white mb-4 line-clamp-2 text-lg leading-tight group-hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+                <h3 className="font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 line-clamp-2 text-base sm:text-lg leading-tight group-hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
                   {article.title}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 leading-relaxed mb-4">
@@ -759,16 +762,16 @@ const NewsPage = () => {
                   </button>
                 </div>
                 {isAdmin && (
-                  <div className="flex gap-2 pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <div className="flex gap-2 pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-700">
                     <button 
                       onClick={e => { e.stopPropagation(); handleEdit(article); }} 
-                      className="text-xs bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900/30 font-medium transition-colors"
+                      className="text-xs bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900/30 font-medium transition-colors"
                     >
                       Edit
                     </button>
                     <button 
                       onClick={e => { e.stopPropagation(); handleDelete(article.id); }} 
-                      className="text-xs bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 px-3 py-1.5 rounded-md hover:bg-red-100 dark:hover:bg-red-900/30 font-medium transition-colors"
+                      className="text-xs bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md hover:bg-red-100 dark:hover:bg-red-900/30 font-medium transition-colors"
                     >
                       Delete
                     </button>

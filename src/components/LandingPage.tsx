@@ -19,17 +19,17 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen relative">
       {/* Auth Buttons */}
-      <div className="absolute top-0 right-0 p-6 z-20 flex gap-4">
+      <div className="absolute top-0 right-0 p-4 sm:p-6 z-20 flex gap-2 sm:gap-4">
         {!user ? (
           <>
             <button
-              className="btn-secondary text-white border-white/30 bg-black/40 hover:bg-white/10 font-bold"
+              className="btn-secondary text-white border-white/30 bg-black/40 hover:bg-white/10 font-bold text-sm sm:text-base px-3 sm:px-6 py-2 sm:py-3"
               onClick={() => { setAuthMode('signin'); setShowAuthModal(true); }}
             >
               Sign In
             </button>
             <button
-              className="btn-primary font-bold"
+              className="btn-primary font-bold text-sm sm:text-base px-3 sm:px-6 py-2 sm:py-3"
               onClick={() => { setAuthMode('signup'); setShowAuthModal(true); }}
             >
               Sign Up
@@ -37,7 +37,7 @@ const LandingPage = () => {
           </>
         ) : (
           <button
-            className="btn-secondary text-white border-white/30 bg-black/40 hover:bg-white/10 font-bold"
+            className="btn-secondary text-white border-white/30 bg-black/40 hover:bg-white/10 font-bold text-sm sm:text-base px-3 sm:px-6 py-2 sm:py-3"
             onClick={logout}
           >
             Log Out
@@ -46,8 +46,8 @@ const LandingPage = () => {
       </div>
       {/* Auth Modal */}
       {showAuthModal && (
-        <div className="fixed inset-0 bg-black/60 z-30 flex items-center justify-center">
-          <div className="bg-gray-900 rounded-xl shadow-xl p-8 max-w-sm w-full border border-gray-800 relative">
+        <div className="fixed inset-0 bg-black/60 z-30 flex items-center justify-center p-4">
+          <div className="bg-gray-900 rounded-xl shadow-xl p-6 sm:p-8 max-w-sm w-full border border-gray-800 relative">
             <button
               className="absolute top-2 right-2 text-gray-400 hover:text-white text-xl"
               onClick={() => setShowAuthModal(false)}
@@ -69,9 +69,9 @@ const LandingPage = () => {
       </div>
       {/* Content Overlay */}
       <div className="relative z-10 min-h-screen flex items-center justify-center">
-        <div className="text-center max-w-2xl mx-auto px-6">
-          <div className="mb-12">
-            <h1 className="text-6xl font-bold text-white mb-6 tracking-tight drop-shadow-lg">
+        <div className="text-center max-w-2xl mx-auto px-4 sm:px-6">
+          <div className="mb-8 sm:mb-12">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 tracking-tight drop-shadow-lg">
               <DecryptedText
                 text="Vleeb"
                 speed={80}
@@ -82,7 +82,7 @@ const LandingPage = () => {
                 encryptedClassName="text-green-400"
               />
             </h1>
-            <p className="text-xl text-gray-200 leading-relaxed drop-shadow-md">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed drop-shadow-md px-2 sm:px-0">
               <DecryptedText
                 text="Stay informed with the latest news in alternative timelines with fire ass updates. Discover stupid shit daily that has no purpose in your life whatsoever"
                 speed={60}
@@ -96,10 +96,10 @@ const LandingPage = () => {
           </div>
           <button
             onClick={handleEnterNews}
-            className="btn-primary text-lg px-8 py-4 inline-flex items-center gap-3 group bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20"
+            className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 inline-flex items-center gap-2 sm:gap-3 group bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20"
           >
             Enter News
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-200" />
           </button>
         </div>
       </div>

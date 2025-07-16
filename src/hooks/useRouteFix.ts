@@ -6,44 +6,98 @@ export const useRouteFix = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Handle mobile Safari refresh issues
-    const handleBeforeUnload = () => {
-      // Store the current path before page unload
+    // Safari mobile specific handling
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
+    // Store current path for Safari mobile
+    if (isSafari && isMobile) {
       sessionStorage.setItem('lastPath', location.pathname);
-    };
+      localStorage.setItem('lastPath', location.pathname);
+    }
 
-    const handleLoad = () => {
-      // Check if we're on a route that might cause issues
-      const lastPath = sessionStorage.getItem('lastPath');
-      const currentPath = window.location.pathname;
-      
-      // If we're on a route that doesn't match our expected routes, redirect to home
-      if (currentPath !== '/' && 
-          currentPath !== '/news' && 
-          !currentPath.startsWith('/article/') &&
-          lastPath !== currentPath) {
-        navigate('/', { replace: true });
+    // Handle page visibility change (Safari mobile specific)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && isSafari && isMobile) {
+        const lastPath = sessionStorage.getItem('lastPath') || localStorage.getItem('lastPath');
+        const currentPath = window.location.pathname;
+        
+        // If the current path doesn't match our expected routes, redirect
+        if (currentPath !== '/' && 
+            currentPath !== '/news' && 
+            !currentPath.startsWith('/article/') &&
+            lastPath && lastPath !== currentPath) {
+          navigate(lastPath, { replace: true });
+        }
       }
     };
 
+    // Handle beforeunload for Safari mobile
+    const handleBeforeUnload = () => {
+      if (isSafari && isMobile) {
+        sessionStorage.setItem('lastPath', location.pathname);
+        localStorage.setItem('lastPath', location.pathname);
+      }
+    };
+
+    // Handle page load for Safari mobile
+    const handleLoad = () => {
+      if (isSafari && isMobile) {
+        const lastPath = sessionStorage.getItem('lastPath') || localStorage.getItem('lastPath');
+        const currentPath = window.location.pathname;
+        
+        // If we're on a route that doesn't match our expected routes, redirect to home
+        if (currentPath !== '/' && 
+            currentPath !== '/news' && 
+            !currentPath.startsWith('/article/') &&
+            lastPath !== currentPath) {
+          navigate('/', { replace: true });
+        }
+      }
+    };
+
+    // Handle popstate for Safari mobile
+    const handlePopState = (event: PopStateEvent) => {
+      if (isSafari && isMobile) {
+        const lastPath = sessionStorage.getItem('lastPath') || localStorage.getItem('lastPath');
+        if (lastPath && lastPath !== window.location.pathname) {
+          navigate(lastPath, { replace: true });
+        }
+      }
+    };
+
+    // Add event listeners
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('beforeunload', handleBeforeUnload);
     window.addEventListener('load', handleLoad);
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('beforeunload', handleBeforeUnload);
       window.removeEventListener('load', handleLoad);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, [location.pathname, navigate]);
 
-  // Handle direct URL access
+  // Handle direct URL access and 404s
   useEffect(() => {
     const currentPath = window.location.pathname;
     const validRoutes = ['/', '/news'];
     const isArticleRoute = currentPath.startsWith('/article/');
     
+    // Check if we're on a valid route
     if (!validRoutes.includes(currentPath) && !isArticleRoute) {
-      // If it's not a valid route, redirect to home
-      navigate('/', { replace: true });
+      // Check if this might be a Safari mobile refresh issue
+      const lastPath = sessionStorage.getItem('lastPath') || localStorage.getItem('lastPath');
+      
+      if (lastPath && (lastPath === '/' || lastPath === '/news' || lastPath.startsWith('/article/'))) {
+        // Redirect to the last known valid path
+        navigate(lastPath, { replace: true });
+      } else {
+        // Redirect to home if no valid last path
+        navigate('/', { replace: true });
+      }
     }
   }, [navigate]);
 }; 

@@ -17,6 +17,25 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Immediate 404 detection and redirect
+      (function() {
+        // Check if we're on a 404 page
+        if (document.title.includes('404') || 
+            document.title.includes('NOT_FOUND') ||
+            window.location.pathname.includes('404') ||
+            document.body.textContent?.includes('NOT_FOUND')) {
+          // Redirect to home immediately
+          window.location.href = '/';
+        }
+        
+        // Store current path for recovery
+        if (window.location.pathname !== '/') {
+          sessionStorage.setItem('lastPath', window.location.pathname);
+          localStorage.setItem('lastPath', window.location.pathname);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html> 

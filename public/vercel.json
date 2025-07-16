@@ -1,7 +1,15 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/news",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/article/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/((?!api|_next|_vercel|.*\\..*).*)",
       "destination": "/index.html"
     }
   ],

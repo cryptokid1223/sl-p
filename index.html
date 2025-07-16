@@ -10,22 +10,56 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#000000" />
     <meta name="msapplication-TileColor" content="#000000" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="manifest" href="/manifest.json" />
     <title>Vleeb News</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
-      // Fallback routing handler - runs before React loads
+      // BULLETPROOF ROUTING HANDLER - RUNS BEFORE ANYTHING ELSE
       (function() {
+        'use strict';
+        
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js')
+              .then(function(registration) {
+                console.log('ServiceWorker registration successful');
+              })
+              .catch(function(err) {
+                console.log('ServiceWorker registration failed');
+              });
+          });
+        }
+        
+        // Clear any existing cache
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            for (let name of names) {
+              caches.delete(name);
+            }
+          });
+        }
+        
+        // Force reload if we're on an invalid route
         const currentPath = window.location.pathname;
         const validRoutes = ['/', '/news'];
         const isArticleRoute = currentPath.startsWith('/article/');
+        const isAsset = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/i.test(currentPath);
         
-        // If we're not on a valid route, redirect to home
-        if (!validRoutes.includes(currentPath) && !isArticleRoute) {
+        // If we're not on a valid route and not requesting an asset, redirect to home
+        if (!validRoutes.includes(currentPath) && !isArticleRoute && !isAsset) {
           // Store the intended path for potential recovery
           sessionStorage.setItem('intendedPath', currentPath);
+          sessionStorage.setItem('redirectTime', Date.now().toString());
+          
+          // Force redirect to home
           window.location.replace('/');
+          return;
         }
         
         // Handle Safari mobile refresh issues
@@ -35,6 +69,7 @@
         if (isSafari && isMobile) {
           // Store current path for recovery
           sessionStorage.setItem('lastPath', currentPath);
+          sessionStorage.setItem('lastPathTime', Date.now().toString());
           
           // Handle page visibility change
           document.addEventListener('visibilitychange', function() {
@@ -42,14 +77,46 @@
               const lastPath = sessionStorage.getItem('lastPath');
               const currentPath = window.location.pathname;
               
+              // If we're not on a valid route, redirect to home
               if (currentPath !== '/' && 
                   currentPath !== '/news' && 
-                  !currentPath.startsWith('/article/')) {
+                  !currentPath.startsWith('/article/') &&
+                  !isAsset) {
                 window.location.replace('/');
               }
             }
           });
+          
+          // Handle beforeunload
+          window.addEventListener('beforeunload', function() {
+            sessionStorage.setItem('lastPath', window.location.pathname);
+            sessionStorage.setItem('lastPathTime', Date.now().toString());
+          });
         }
+        
+        // Handle popstate events
+        window.addEventListener('popstate', function(event) {
+          const currentPath = window.location.pathname;
+          if (!validRoutes.includes(currentPath) && !isArticleRoute && !isAsset) {
+            window.location.replace('/');
+          }
+        });
+        
+        // Force reload on hash change (for some edge cases)
+        window.addEventListener('hashchange', function() {
+          if (window.location.hash && window.location.pathname === '/') {
+            window.location.reload();
+          }
+        });
+        
+        // Additional safety check after a short delay
+        setTimeout(function() {
+          const currentPath = window.location.pathname;
+          if (!validRoutes.includes(currentPath) && !isArticleRoute && !isAsset) {
+            window.location.replace('/');
+          }
+        }, 100);
+        
       })();
     </script>
   </head>

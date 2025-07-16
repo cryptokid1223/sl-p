@@ -1,2 +1,16 @@
 # SPA fallback - all routes go to index.html
-/*    /index.html   200 
+/*    /index.html   200
+
+# Specific route handling for better performance
+/news    /index.html   200
+/article/*    /index.html   200
+/404    /index.html   200
+/not-found    /index.html   200
+
+# Handle common error paths
+/error    /index.html   200
+/500    /index.html   200
+
+# Force no caching for HTML files
+/index.html    /index.html   200
+  Cache-Control: no-cache, no-store, must-revalidate 

@@ -38,6 +38,7 @@
         .char {
             display: inline-block;
             will-change: transform, opacity;
+            color: #00ff88;
         }
         
         .header p {
@@ -277,11 +278,18 @@
         
         // Animate Vleeb title
         function animateVleebTitle() {
+            console.log('Starting Vleeb animation...');
             const titleElement = document.querySelector('.header h1');
-            if (!titleElement) return;
+            console.log('Title element:', titleElement);
+            
+            if (!titleElement) {
+                console.log('Title element not found!');
+                return;
+            }
             
             // Get the text content
             const text = titleElement.textContent;
+            console.log('Text content:', text);
             titleElement.innerHTML = '';
             
             // Create individual spans for each character
@@ -296,16 +304,24 @@
             
             // Get all character spans
             const chars = titleElement.querySelectorAll('.char');
+            console.log('Number of characters:', chars.length);
             
-            // Animate characters in
+            // Animate characters in with more obvious effect
             gsap.to(chars, {
                 opacity: 1,
                 y: 0,
-                duration: 0.6,
-                ease: "power3.out",
-                stagger: 0.1,
+                scale: 1.2,
+                duration: 1,
+                ease: "back.out(1.7)",
+                stagger: 0.15,
                 onComplete: () => {
                     console.log('Vleeb title animation complete!');
+                    // Scale back to normal
+                    gsap.to(chars, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
                 }
             });
         }

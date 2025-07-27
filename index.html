@@ -109,14 +109,7 @@
         
         .city-info h3 {
             font-size: 0.9rem;
-            margin-bottom: 0.1rem;
             font-weight: 500;
-        }
-        
-        .city-info p {
-            font-size: 0.75rem;
-            opacity: 0.6;
-            font-weight: 300;
         }
         
         .video-panel {
@@ -135,14 +128,7 @@
         
         .video-header h2 {
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
             font-weight: 400;
-        }
-        
-        .video-header p {
-            opacity: 0.6;
-            font-size: 0.9rem;
-            font-weight: 300;
         }
         
         .video-container {
@@ -264,7 +250,6 @@
         <div class="video-panel">
             <div class="video-header">
                 <h2 id="selectedCityName">Choose a City</h2>
-                <p id="selectedCityDesc">Select a city from the list to view its live webcam feed</p>
             </div>
             
             <div class="video-container">
@@ -398,7 +383,6 @@
                     <div class="city-icon">${city.icon}</div>
                     <div class="city-info">
                         <h3>${city.name}</h3>
-                        <p>${city.description}</p>
                     </div>
                 `;
 
@@ -423,7 +407,6 @@
                     LIVE
                 </span>
             `;
-            document.getElementById('selectedCityDesc').textContent = city.description;
 
             // Show video
             const videoFrame = document.getElementById('videoFrame');

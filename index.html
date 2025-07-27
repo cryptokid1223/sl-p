@@ -272,32 +272,33 @@
 
     <!-- GSAP Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
     
     <script>
-        // Register GSAP plugins
-        gsap.registerPlugin(ScrollTrigger, SplitText);
         
         // Animate Vleeb title
         function animateVleebTitle() {
             const titleElement = document.querySelector('.header h1');
             if (!titleElement) return;
             
-            // Split the text into characters
-            const splitText = new SplitText(titleElement, {
-                type: "chars",
-                charsClass: "char"
-            });
+            // Get the text content
+            const text = titleElement.textContent;
+            titleElement.innerHTML = '';
             
-            // Set initial state
-            gsap.set(splitText.chars, {
-                opacity: 0,
-                y: 40
-            });
+            // Create individual spans for each character
+            for (let i = 0; i < text.length; i++) {
+                const charSpan = document.createElement('span');
+                charSpan.textContent = text[i];
+                charSpan.className = 'char';
+                charSpan.style.opacity = '0';
+                charSpan.style.transform = 'translateY(40px)';
+                titleElement.appendChild(charSpan);
+            }
+            
+            // Get all character spans
+            const chars = titleElement.querySelectorAll('.char');
             
             // Animate characters in
-            gsap.to(splitText.chars, {
+            gsap.to(chars, {
                 opacity: 1,
                 y: 0,
                 duration: 0.6,
@@ -533,8 +534,10 @@
 
         // Add some interactivity
         document.addEventListener('DOMContentLoaded', function() {
-            // Animate Vleeb title
-            animateVleebTitle();
+            // Animate Vleeb title with a small delay
+            setTimeout(() => {
+                animateVleebTitle();
+            }, 100);
             
             // Auto-select first city after a delay
             setTimeout(() => {

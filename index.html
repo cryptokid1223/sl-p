@@ -212,21 +212,7 @@
             background: #000000;
         }
         
-        .city-stats {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .stat {
-            background: #1a1a1a;
-            border: 1px solid #2a2a2a;
-            padding: 0.5rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 300;
-        }
+
         
         @media (max-width: 768px) {
             .container {
@@ -289,9 +275,7 @@
                 <iframe id="videoFrame" style="display: none;" onload="console.log('Video loaded successfully')" onerror="console.log('Video failed to load')"></iframe>
             </div>
             
-            <div class="city-stats" id="cityStats" style="display: none;">
-                <!-- City stats will be populated by JavaScript -->
-            </div>
+
         </div>
     </div>
 
@@ -462,14 +446,9 @@
                 }
             }, 1000);
 
-            // Show city stats
+            // Hide city stats
             const cityStats = document.getElementById('cityStats');
-            cityStats.style.display = 'flex';
-            cityStats.innerHTML = `
-                <div class="stat">👥 Population: ${city.population}</div>
-                <div class="stat">🕐 Timezone: ${city.timezone}</div>
-                <div class="stat">🌤️ ${city.weather}</div>
-            `;
+            cityStats.style.display = 'none';
         }
 
         // Initialize the app

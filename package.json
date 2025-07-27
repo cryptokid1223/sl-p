@@ -1,13 +1,13 @@
 {
-  "name": "fresh-start",
+  "name": "live-city-cams",
   "version": "1.0.0",
-  "description": "A completely fresh start - clean slate project",
+  "description": "Live webcam feeds from America's top cities - 24/7 real-time streaming",
   "main": "index.html",
   "scripts": {
-    "start": "echo 'Static website - open index.html in browser'",
-    "dev": "echo 'Static website - open index.html in browser'"
+    "start": "echo 'Open index.html in your browser to view the live city cams'",
+    "dev": "echo 'Open index.html in your browser to view the live city cams'"
   },
-  "keywords": ["fresh-start", "clean-slate", "static-website"],
+  "keywords": ["live-cams", "webcams", "cities", "streaming", "youtube", "real-time"],
   "author": "",
   "license": "MIT"
 } 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fresh Start</title>
+    <title>Live City Cams - America's Top Cities</title>
     <style>
         * {
             margin: 0;
@@ -13,94 +13,436 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: white;
         }
         
-        .container {
+        .header {
             text-align: center;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            padding: 2rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 90%;
         }
         
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
             background: linear-gradient(45deg, #fff, #f0f0f0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+        .header p {
+            font-size: 1.1rem;
             opacity: 0.9;
         }
         
-        .status {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            min-height: calc(100vh - 200px);
         }
         
-        .checkmark {
-            color: #4ade80;
+        .cities-panel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+        
+        .cities-panel h2 {
+            margin-bottom: 1.5rem;
             font-size: 1.5rem;
-            margin-right: 0.5rem;
+            text-align: center;
         }
         
-        .timestamp {
+        .city-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .city-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .city-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+        
+        .city-item.active {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #4ade80;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+        }
+        
+        .city-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .city-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .city-info p {
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.8;
+        }
+        
+        .video-panel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .video-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .video-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .video-header p {
+            opacity: 0.8;
+        }
+        
+        .video-container {
+            flex: 1;
+            position: relative;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-placeholder {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .video-placeholder h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .video-placeholder p {
+            opacity: 0.8;
+        }
+        
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ef4444;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+        
+        .city-stats {
+            display: flex;
+            gap: 1rem;
             margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .video-header h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>🌆 Live City Cams</h1>
+        <p>Experience America's top cities in real-time with 24/7 live webcams</p>
+    </div>
+    
     <div class="container">
-        <h1>Fresh Start</h1>
-        <p>Welcome to your completely reset project!</p>
-        
-        <div class="status">
-            <div><span class="checkmark">✅</span> GitHub repository reset</div>
-            <div><span class="checkmark">✅</span> Old Vleeb website removed</div>
-            <div><span class="checkmark">✅</span> Clean deployment ready</div>
+        <div class="cities-panel">
+            <h2>🏙️ Select a City</h2>
+            <div class="city-list" id="cityList">
+                <!-- Cities will be populated by JavaScript -->
+            </div>
         </div>
         
-        <p>Your project is now completely clean and ready for a new beginning.</p>
-        
-        <div class="timestamp">
-            Reset completed: <span id="timestamp"></span>
+        <div class="video-panel">
+            <div class="video-header">
+                <h2 id="selectedCityName">Choose a City</h2>
+                <p id="selectedCityDesc">Select a city from the list to view its live webcam feed</p>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-placeholder" id="videoPlaceholder">
+                    <h3>🎥 Live Webcam Feed</h3>
+                    <p>Click on a city to start watching the live stream</p>
+                </div>
+                <iframe id="videoFrame" style="display: none;"></iframe>
+            </div>
+            
+            <div class="city-stats" id="cityStats" style="display: none;">
+                <!-- City stats will be populated by JavaScript -->
+            </div>
         </div>
     </div>
 
     <script>
-        // Set current timestamp
-        document.getElementById('timestamp').textContent = new Date().toLocaleString();
-        
-        // Add a subtle animation
-        document.querySelector('.container').style.animation = 'fadeIn 1s ease-in';
-        
-        // Add CSS animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
+        const cities = [
+            {
+                name: "New York City",
+                state: "NY",
+                icon: "🗽",
+                description: "The Big Apple - Times Square and Manhattan skyline",
+                videoId: "1-iS7LArMPA", // Times Square live cam
+                population: "8.8M",
+                timezone: "EST",
+                weather: "Live weather data"
+            },
+            {
+                name: "Miami",
+                state: "FL",
+                icon: "🌴",
+                description: "Sunny beaches and vibrant South Beach",
+                videoId: "jXKxjx5n1IY", // Miami Beach live cam
+                population: "450K",
+                timezone: "EST",
+                weather: "Live weather data"
+            },
+            {
+                name: "Los Angeles",
+                state: "CA",
+                icon: "🌅",
+                description: "Hollywood and the Pacific Coast",
+                videoId: "M0puqN7Q_OE", // LA live cam
+                population: "4M",
+                timezone: "PST",
+                weather: "Live weather data"
+            },
+            {
+                name: "Chicago",
+                state: "IL",
+                icon: "🏙️",
+                description: "The Windy City and Lake Michigan",
+                videoId: "QOjmvH3e7Yk", // Chicago live cam
+                population: "2.7M",
+                timezone: "CST",
+                weather: "Live weather data"
+            },
+            {
+                name: "Las Vegas",
+                state: "NV",
+                icon: "🎰",
+                description: "The Strip and dazzling lights",
+                videoId: "9JV-lBJqXro", // Vegas live cam
+                population: "650K",
+                timezone: "PST",
+                weather: "Live weather data"
+            },
+            {
+                name: "San Francisco",
+                state: "CA",
+                icon: "🌉",
+                description: "Golden Gate Bridge and Bay Area",
+                videoId: "vNQr1DtT9dY", // SF live cam
+                population: "873K",
+                timezone: "PST",
+                weather: "Live weather data"
+            },
+            {
+                name: "Seattle",
+                state: "WA",
+                icon: "☕",
+                description: "Space Needle and Puget Sound",
+                videoId: "n8I8QGXb8qU", // Seattle live cam
+                population: "744K",
+                timezone: "PST",
+                weather: "Live weather data"
+            },
+            {
+                name: "New Orleans",
+                state: "LA",
+                icon: "🎷",
+                description: "French Quarter and jazz culture",
+                videoId: "r6dy3t1rfls", // NOLA live cam
+                population: "390K",
+                timezone: "CST",
+                weather: "Live weather data"
+            },
+            {
+                name: "Nashville",
+                state: "TN",
+                icon: "🎸",
+                description: "Music City and country vibes",
+                videoId: "qQZqQZqQZqQ", // Nashville live cam (placeholder)
+                population: "690K",
+                timezone: "CST",
+                weather: "Live weather data"
+            },
+            {
+                name: "Austin",
+                state: "TX",
+                icon: "🤠",
+                description: "Keep Austin Weird - live music capital",
+                videoId: "qQZqQZqQZqQ", // Austin live cam (placeholder)
+                population: "978K",
+                timezone: "CST",
+                weather: "Live weather data"
             }
-        `;
-        document.head.appendChild(style);
+        ];
+
+        let selectedCity = null;
+
+        function populateCities() {
+            const cityList = document.getElementById('cityList');
+            cityList.innerHTML = '';
+
+            cities.forEach(city => {
+                const cityItem = document.createElement('div');
+                cityItem.className = 'city-item';
+                cityItem.onclick = () => selectCity(city);
+
+                cityItem.innerHTML = `
+                    <div class="city-icon">${city.icon}</div>
+                    <div class="city-info">
+                        <h3>${city.name}</h3>
+                        <p>${city.description}</p>
+                    </div>
+                `;
+
+                cityList.appendChild(cityItem);
+            });
+        }
+
+        function selectCity(city) {
+            selectedCity = city;
+            
+            // Update active state
+            document.querySelectorAll('.city-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            // Update header
+            document.getElementById('selectedCityName').innerHTML = `
+                ${city.icon} ${city.name}, ${city.state}
+                <span class="live-indicator">
+                    <span class="live-dot"></span>
+                    LIVE
+                </span>
+            `;
+            document.getElementById('selectedCityDesc').textContent = city.description;
+
+            // Show video
+            const videoFrame = document.getElementById('videoFrame');
+            const videoPlaceholder = document.getElementById('videoPlaceholder');
+            
+            videoFrame.style.display = 'block';
+            videoPlaceholder.style.display = 'none';
+            
+            // Load YouTube live stream
+            videoFrame.src = `https://www.youtube.com/embed/${city.videoId}?autoplay=1&mute=1&controls=1&rel=0`;
+
+            // Show city stats
+            const cityStats = document.getElementById('cityStats');
+            cityStats.style.display = 'flex';
+            cityStats.innerHTML = `
+                <div class="stat">👥 Population: ${city.population}</div>
+                <div class="stat">🕐 Timezone: ${city.timezone}</div>
+                <div class="stat">🌤️ ${city.weather}</div>
+            `;
+        }
+
+        // Initialize the app
+        populateCities();
+
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-select first city after a delay
+            setTimeout(() => {
+                if (cities.length > 0) {
+                    const firstCityItem = document.querySelector('.city-item');
+                    if (firstCityItem) {
+                        firstCityItem.click();
+                    }
+                }
+            }, 1000);
+        });
     </script>
 </body>
 </html> 

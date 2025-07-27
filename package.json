@@ -7,7 +7,17 @@
     "start": "echo 'Open index.html in your browser to view the live city cams'",
     "dev": "echo 'Open index.html in your browser to view the live city cams'"
   },
-  "keywords": ["live-cams", "webcams", "cities", "streaming", "youtube", "real-time"],
+  "keywords": [
+    "live-cams",
+    "webcams",
+    "cities",
+    "streaming",
+    "youtube",
+    "real-time"
+  ],
   "author": "",
-  "license": "MIT"
-} 
+  "license": "MIT",
+  "dependencies": {
+    "gsap": "^3.13.0"
+  }
+}

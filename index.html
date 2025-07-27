@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live City Cams - America's Top Cities</title>
+    <title>Vleeb - Live City Cams</title>
     <style>
         * {
             margin: 0;
@@ -32,6 +32,12 @@
             margin-bottom: 0.5rem;
             font-weight: 300;
             letter-spacing: -0.5px;
+            overflow: hidden;
+        }
+        
+        .char {
+            display: inline-block;
+            will-change: transform, opacity;
         }
         
         .header p {
@@ -264,7 +270,45 @@
         </div>
     </div>
 
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
+    
     <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger, SplitText);
+        
+        // Animate Vleeb title
+        function animateVleebTitle() {
+            const titleElement = document.querySelector('.header h1');
+            if (!titleElement) return;
+            
+            // Split the text into characters
+            const splitText = new SplitText(titleElement, {
+                type: "chars",
+                charsClass: "char"
+            });
+            
+            // Set initial state
+            gsap.set(splitText.chars, {
+                opacity: 0,
+                y: 40
+            });
+            
+            // Animate characters in
+            gsap.to(splitText.chars, {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power3.out",
+                stagger: 0.1,
+                onComplete: () => {
+                    console.log('Vleeb title animation complete!');
+                }
+            });
+        }
+        
         const cities = [
             {
                 name: "New York City",
@@ -489,6 +533,9 @@
 
         // Add some interactivity
         document.addEventListener('DOMContentLoaded', function() {
+            // Animate Vleeb title
+            animateVleebTitle();
+            
             // Auto-select first city after a delay
             setTimeout(() => {
                 if (cities.length > 0) {

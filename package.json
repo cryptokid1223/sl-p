@@ -1,23 +1,13 @@
 {
-  "name": "live-city-cams",
+  "name": "vleeb",
   "version": "1.0.0",
-  "description": "Live webcam feeds from America's top cities - 24/7 real-time streaming",
+  "description": "Live city cams - 24/7 webcam feeds from around the world",
   "main": "index.html",
   "scripts": {
-    "start": "echo 'Open index.html in your browser to view the live city cams'",
-    "dev": "echo 'Open index.html in your browser to view the live city cams'"
+    "start": "echo 'Static website - open index.html in browser'",
+    "dev": "echo 'Static website - open index.html in browser'"
   },
-  "keywords": [
-    "live-cams",
-    "webcams",
-    "cities",
-    "streaming",
-    "youtube",
-    "real-time"
-  ],
+  "keywords": ["live-cams", "webcams", "cities", "streaming", "vleeb"],
   "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "gsap": "^3.13.0"
-  }
+  "license": "MIT"
 }
